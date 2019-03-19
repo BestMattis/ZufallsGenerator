@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="bg" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RandomNumberController">
+   <children>
+      <Label fx:id="outputLabel" alignment="CENTER" prefHeight="262.0" prefWidth="400.0" text="Label" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="170.0" />
+         </font>
+      </Label>
+      <VBox fx:id="stack" alignment="CENTER" prefHeight="300.0" prefWidth="400.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="topLabel" alignment="CENTER" text="Label" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Calibri" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="textFields" alignment="CENTER" prefHeight="32.0" prefWidth="395.0" spacing="100.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="135.0">
+                     <children>
+                        <Label fx:id="minLabel" text="Label" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="minTextfield" prefHeight="25.0" prefWidth="116.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="135.0">
+                     <children>
+                        <Label fx:id="maxLabel" text="Label" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="maxTextfield" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="25.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="compButtonBox" alignment="CENTER" prefHeight="18.0" prefWidth="395.0">
+               <children>
+                  <Button fx:id="computeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #333333; -fx-border-color: white; -fx-border-radius: 3; -fx-text-fill: white;" text="Button">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox fx:id="errorLabBox" alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="errorLabel" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox fx:id="backButtonBox" alignment="CENTER" prefHeight="47.0" prefWidth="400.0" spacing="5.0">
+               <children>
+                  <Button fx:id="computeButton1" mnemonicParsing="false" style="-fx-background-color: #333333; -fx-border-color: white; -fx-border-radius: 3; -fx-text-fill: white;" text="Button">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="backButton" mnemonicParsing="false" style="-fx-background-color: #333333; -fx-border-color: white; -fx-border-radius: 3; -fx-text-fill: white;" text="Button">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
