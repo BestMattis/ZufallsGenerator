@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -57,6 +59,8 @@ public class RandomNumberController {
     int min = -1;
     int max = -1;
     int result;
+    boolean usedUp = false;
+    ArrayList<Integer> usedNumbers = new ArrayList<Integer>();
     private ObjectProperty<Font> fontTracking = new SimpleObjectProperty<Font>(Font.getDefault());
 	public void initialize() {
 		outputLabel.fontProperty().bind(fontTracking);
@@ -82,6 +86,8 @@ public class RandomNumberController {
 		minTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				min = Integer.parseInt(newValue);
+				usedUp = false;
+				usedNumbers = new ArrayList<Integer>();
 			} catch (Exception e) {
 				min = -1;
 			}
@@ -90,6 +96,8 @@ public class RandomNumberController {
 		maxTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				max = Integer.parseInt(newValue);
+				usedUp = false;
+				usedNumbers = new ArrayList<Integer>();
 			} catch (Exception e) {
 				max = -1;
 			}
@@ -109,7 +117,7 @@ public class RandomNumberController {
 		backButton.setOnAction(e -> nextNumber());
 	}
 	public void computNumber() {
-		if(min != -1 && max != -1 && min <= max && min >= 0 && max >= 0) {
+		if(min != -1 && max != -1 && min <= max && min >= 0 && max >= 0 && !usedUp) {
 			errorLabel.setVisible(false);
 			topLabel.setVisible(false);
 			minLabel.setVisible(false);
@@ -121,21 +129,39 @@ public class RandomNumberController {
 			backButton.setVisible(true);
 			outputLabel.setVisible(true);
 			result = (int)(Math.random() * ((max-min)+1))+min;
+			while(usedNumbers.contains(result)) {
+				result = (int)(Math.random() * ((max-min)+1))+min;
+			}
+			usedNumbers.add(result);
 			outputLabel.setTextFill(Color.WHITE);
 			outputLabel.setText(String.valueOf(result));
-			
-		} else if(min == -1 || max == -1){
+			if(usedNumbers.size() >= max-min+1) {
+				usedUp = true;
+			}
 
+		} else if(min == -1 || max == -1){
 			outputLabel.setVisible(false);
 			errorLabel.setVisible(true);
 			errorLabel.setTextFill(Color.RED);
 			errorLabel.setText("Bitte geben Sie eine untere / obere Schranke an.");
 		} else if(min > max) {
-
 			errorLabel.setVisible(true);
 			outputLabel.setVisible(false);
 			errorLabel.setTextFill(Color.RED);
 			errorLabel.setText("Bitte die Schranken so wählen sodass : min-Wert < max-Wert.");
+		} else if(usedUp) {
+			errorLabel.setVisible(true);
+			topLabel.setVisible(true);
+			minLabel.setVisible(true);
+			maxLabel.setVisible(true);
+			minTextfield.setVisible(true);
+			maxTextfield.setVisible(true);
+			computeButton.setVisible(true);
+			computeButton1.setVisible(false);
+			backButton.setVisible(false);
+			outputLabel.setVisible(false);
+			errorLabel.setTextFill(Color.RED);
+			errorLabel.setText("Keine unbenutzten Zahlen im gewählten Bereich mehr verfügbar.\nBitte wählen Sie eine neue Schranke");
 		}
 	}
 	public void nextNumber() {
