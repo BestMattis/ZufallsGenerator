@@ -53,7 +53,7 @@ public class RandomNumberController {
 	HBox errorLabBox;
 	@FXML
 	HBox backButtonBox;
-	
+	//hans der ralph
 	private static final String IDLE_BUTTON_STYLE = "-fx-background-color: #333333; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 3";
     private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #555555; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 3";	
     int min = -1;
