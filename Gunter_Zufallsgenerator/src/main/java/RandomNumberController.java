@@ -102,6 +102,9 @@ public class RandomNumberController {
 				max = -1;
 			}
 		});
+		/*
+		 * added for merge Test
+		 */
 		maxTextfield.setStyle("-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4; -fx-background-color: #333333");
 		computeButton.setText("Bestimme Zufallszahl");
 		computeButton.setOnMouseEntered(e -> computeButton.setStyle(HOVERED_BUTTON_STYLE));
