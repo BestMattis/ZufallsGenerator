@@ -117,6 +117,8 @@ public class RandomNumberController {
 		/*
 		 * added for merge Test
 		 * hab hier unten noch was geändert
+		 * more added
+		 * 
 		 */
 		maxTextfield.setStyle("-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4; -fx-background-color: #333333");
 		computeButton.setText("Bestimme Zufallszahl");
