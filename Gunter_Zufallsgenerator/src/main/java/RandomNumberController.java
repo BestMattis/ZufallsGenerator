@@ -53,18 +53,6 @@ public class RandomNumberController {
 	HBox errorLabBox;
 	@FXML
 	HBox backButtonBox;
-	/*
-	 * 
-	 * more added for merge test
-	 * 
-	 * 
-	 * 
-	 * 
-	 * this as well
-	 * 
-	 * 
-	 * 
-	 */
 	
 	private static final String IDLE_BUTTON_STYLE = "-fx-background-color: #333333; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 3";
     private static final String HOVERED_BUTTON_STYLE = "-fx-background-color: #555555; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 3";	
