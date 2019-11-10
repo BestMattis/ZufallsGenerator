@@ -67,6 +67,8 @@ public class RandomNumberController {
 	private String indexAlphabet[] = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
 			"q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
 	private ArrayList<String> bstn = new ArrayList<String>(Arrays.asList(indexAlphabet));
+	boolean standartMin = true;
+	boolean standartMax = true;
 
 	public void initialize() {
 		outputLabel.fontProperty().bind(fontTracking);
@@ -89,13 +91,23 @@ public class RandomNumberController {
 		minTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				StringBuilder parse = new StringBuilder(newValue);
-				if (parse.substring(1).length() > 2) {
-					min = -2;
-				} else {
-					if (Integer.parseInt(parse.substring(1)) < 10) {
-						parse.insert(1, 0);
+				if (bstn.contains(parse.substring(0, 1))) {
+					System.out.println("axx");
+					standartMin = false;
+					if (parse.substring(1).length() > 2) {
+						min = -2;
+					} else {
+						if (Integer.parseInt(parse.substring(1)) < 10) {
+							parse.insert(1, 0);
+						}
+						parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
+						min = Integer.parseInt(parse.toString());
+						usedUp = false;
+						usedNumbers = new ArrayList<Integer>();
 					}
-					parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
+				} else {
+					System.out.println("normal");
+					standartMin = true;
 					min = Integer.parseInt(parse.toString());
 					usedUp = false;
 					usedNumbers = new ArrayList<Integer>();
@@ -109,13 +121,21 @@ public class RandomNumberController {
 		maxTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				StringBuilder parse = new StringBuilder(newValue);
-				if (parse.substring(1).length() > 2) {
-					max = -2;
-				} else {
-					if (Integer.parseInt(parse.substring(1)) < 10) {
-						parse.insert(1, 0);
+				if (bstn.contains(parse.substring(0, 1))) {
+					standartMax = false;
+					if (parse.substring(1).length() > 2) {
+						max = -2;
+					} else {
+						if (Integer.parseInt(parse.substring(1)) < 10) {
+							parse.insert(1, 0);
+						}
+						parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
+						max = Integer.parseInt(parse.toString());
+						usedUp = false;
+						usedNumbers = new ArrayList<Integer>();
 					}
-					parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
+				} else {
+					standartMax = true;
 					max = Integer.parseInt(parse.toString());
 					usedUp = false;
 					usedNumbers = new ArrayList<Integer>();
@@ -142,7 +162,7 @@ public class RandomNumberController {
 	}
 
 	public void computNumber() {
-		if (min != -1 && max != -1 && min <= max && min >= 0 && max >= 0 && !usedUp) {
+		if (min != -1 && max != -1 && min <= max && min >= 0 && max >= 0 && !usedUp && standartMin == standartMax) {
 			errorLabel.setVisible(false);
 			topLabel.setVisible(false);
 			minLabel.setVisible(false);
@@ -160,22 +180,24 @@ public class RandomNumberController {
 			usedNumbers.add(result);
 			outputLabel.setTextFill(Color.WHITE);
 			StringBuilder backParse = new StringBuilder(String.valueOf(result));
-			if (result >= 1000) {
-				backParse.replace(0, 2, bstn.get(Integer.parseInt(String.valueOf(result).substring(0, 2))));
-			} else if (result < 100) {
-				backParse.insert(0, 0);
-				if (result < 10) {
+			if(standartMin == false && standartMax == false) {
+				if (result >= 1000) {
+					backParse.replace(0, 2, bstn.get(Integer.parseInt(String.valueOf(result).substring(0, 2))));
+				} else if (result < 100) {
 					backParse.insert(0, 0);
+					if (result < 10) {
+						backParse.insert(0, 0);
+					}
+					backParse.replace(0, 1, bstn.get(Integer.parseInt(backParse.substring(0, 1))));
+				} else {
+					backParse.replace(0, 1, bstn.get(Integer.parseInt(String.valueOf(result).substring(0, 1))));
 				}
-				backParse.replace(0, 1, bstn.get(Integer.parseInt(backParse.substring(0, 1))));
-			} else {
-				backParse.replace(0, 1, bstn.get(Integer.parseInt(String.valueOf(result).substring(0, 1))));
 			}
 			outputLabel.setText(String.valueOf(backParse.toString()));
 			if (usedNumbers.size() >= max - min + 1) {
 				usedUp = true;
 			}
-
+			
 		} else if (min == -1 || max == -1) {
 			outputLabel.setVisible(false);
 			errorLabel.setVisible(true);
@@ -200,12 +222,16 @@ public class RandomNumberController {
 			errorLabel.setTextFill(Color.RED);
 			errorLabel.setText(
 					"Keine unbenutzten Zahlen im gewählten Bereich mehr verfügbar.\nBitte wählen Sie eine neue Schranke");
-		} else if(min == -2 || max == -2) {
+		} else if (min == -2 || max == -2) {
 			errorLabel.setVisible(true);
 			outputLabel.setVisible(false);
 			errorLabel.setTextFill(Color.RED);
 			errorLabel.setText("Numerischer Teil der jeweiligen Schranke muss < 100");
-			
+		} else if(standartMin != standartMax) {
+			errorLabel.setVisible(true);
+			outputLabel.setVisible(false);
+			errorLabel.setTextFill(Color.RED);
+			errorLabel.setText("Maximum und Minimum input müssen vom selben Typ sein");
 		}
 	}
 
