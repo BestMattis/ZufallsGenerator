@@ -92,21 +92,19 @@ public class RandomNumberController {
 			try {
 				StringBuilder parse = new StringBuilder(newValue);
 				if (bstn.contains(parse.substring(0, 1))) {
-//					System.out.println("axx");
+					System.out.println("axx");
 					standartMin = false;
-					if (parse.substring(1).length() > 2) {
+					if (parse.substring(1).length() != 2) {
 						min = -2;
 					} else {
-						if (Integer.parseInt(parse.substring(1)) < 10) {
-							parse.insert(1, 0);
-						}
 						parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
 						min = Integer.parseInt(parse.toString());
+						System.out.println("min set as = "+min);
 						usedUp = false;
 						usedNumbers = new ArrayList<Integer>();
 					}
 				} else {
-//					System.out.println("normal");
+					System.out.println("normal");
 					standartMin = true;
 					min = Integer.parseInt(parse.toString());
 					usedUp = false;
@@ -123,14 +121,12 @@ public class RandomNumberController {
 				StringBuilder parse = new StringBuilder(newValue);
 				if (bstn.contains(parse.substring(0, 1))) {
 					standartMax = false;
-					if (parse.substring(1).length() > 2) {
+					if (parse.substring(1).length() != 2) {
 						max = -2;
 					} else {
-						if (Integer.parseInt(parse.substring(1)) < 10) {
-							parse.insert(1, 0);
-						}
 						parse.replace(0, 1, String.valueOf(bstn.indexOf(newValue.substring(0, 1))));
 						max = Integer.parseInt(parse.toString());
+						System.out.println("max set as = "+max);
 						usedUp = false;
 						usedNumbers = new ArrayList<Integer>();
 					}
@@ -180,6 +176,7 @@ public class RandomNumberController {
 			usedNumbers.add(result);
 			outputLabel.setTextFill(Color.WHITE);
 			StringBuilder backParse = new StringBuilder(String.valueOf(result));
+			System.out.println("min: "+min+" max: "+max+" result: "+result);
 			if (standartMin == false && standartMax == false) {
 				if (result >= 1000) {
 					backParse.replace(0, 2, bstn.get(Integer.parseInt(String.valueOf(result).substring(0, 2))));
@@ -220,17 +217,17 @@ public class RandomNumberController {
 			backButton.setVisible(false);
 			outputLabel.setVisible(false);
 			errorLabel.setTextFill(Color.RED);
-			errorLabel.setText("Keine unbenutzten Zahlen im gewählten Bereich mehr verfügbar.\nBitte wählen Sie eine neue Schranke");
+			errorLabel.setText("Keine unbenutzten Zahlen im gewählten Bereich mehr verfügbar.\nBitte wählen Sie eine neue Schranke.");
 		} else if (min == -2 || max == -2) {
 			errorLabel.setVisible(true);
 			outputLabel.setVisible(false);
 			errorLabel.setTextFill(Color.RED);
-			errorLabel.setText("Numerischer Teil der jeweiligen Schranke muss < 100");
+			errorLabel.setText("Numerischer Teil der jeweiligen Schranke muss Länge 2 haben.");
 		} else if (standartMin != standartMax) {
 			errorLabel.setVisible(true);
 			outputLabel.setVisible(false);
 			errorLabel.setTextFill(Color.RED);
-			errorLabel.setText("Maximum und Minimum input müssen vom selben Typ sein");
+			errorLabel.setText("Maximum und Minimum input müssen vom selben Typ sein.");
 		}
 	}
 
